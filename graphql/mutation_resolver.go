@@ -65,6 +65,7 @@ func (r *mutationResolver) CreateOrder(ctx context.Context, in OrderInput) (*Ord
 			Quantity: uint32(p.Quantity),
 		})
 	}
+	
 	o, err := r.server.orderClient.PostOrder(ctx, in.AccountID, products)
 	if err != nil {
 		log.Println(err)

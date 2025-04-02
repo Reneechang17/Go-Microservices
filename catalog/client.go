@@ -18,6 +18,7 @@ func NewClient(url string) (*Client, error) {
 		return nil, err
 	}
 	c := pb.NewCatalogServiceClient(conn)
+
 	return &Client{conn, c}, nil
 }
 
@@ -37,6 +38,7 @@ func (c *Client) PostProduct(ctx context.Context, name, description string, pric
 	if err != nil {
 		return nil, err
 	}
+
 	return &Product{
 		ID:          r.Product.Id,
 		Name:        r.Product.Name,
@@ -52,9 +54,11 @@ func (c *Client) GetProduct(ctx context.Context, id string) (*Product, error) {
 			Id: id,
 		},
 	)
+
 	if err != nil {
 		return nil, err
 	}
+
 	return &Product{
 		ID:          r.Product.Id,
 		Name:        r.Product.Name,
@@ -73,9 +77,11 @@ func (c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids 
 			Query: query,
 		},
 	)
+
 	if err != nil {
 		return nil, err
 	}
+
 	products := []Product{}
 	for _, p := range r.Products {
 		products = append(products, Product{
@@ -85,5 +91,6 @@ func (c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids 
 			Price:       p.Price,
 		})
 	}
+	
 	return products, nil
 }

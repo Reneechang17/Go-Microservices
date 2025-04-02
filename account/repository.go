@@ -28,7 +28,6 @@ func NewPostgresRepository(url string) (Repository, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return &postgresRepository{db}, nil
 }
 
@@ -48,6 +47,7 @@ func (r *postgresRepository) PutAccount(ctx context.Context, a Account) error {
 func (r *postgresRepository) GetAccountByID(ctx context.Context, id string) (*Account, error) {
 	row := r.db.QueryRowContext(ctx, "SELECT id, name FROM accounts WHERE id = $1", id)
 	a := &Account{}
+
 	if err := row.Scan(&a.ID, &a.Name); err != nil {
 		return nil, err
 	}
@@ -61,19 +61,20 @@ func (r *postgresRepository) ListAccounts(ctx context.Context, skip uint64, take
 		skip,
 		take,
 	)
+
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 
 	accounts := [] Account{}
-
 	for rows.Next(){
 		a := &Account{}
 		if err = rows.Scan(&a.ID, &a.Name); err != nil {
 			accounts = append(accounts, *a)
 		}
 	}
+
 	if err = rows.Err(); err != nil {
 		return nil, err
 	}

@@ -18,6 +18,7 @@ func NewClient(url string)(*Client, error) {
 		return nil, err
 	}
 	c := pb.NewAccountServiceClient(conn)
+
 	return &Client{conn, c}, nil
 }
 
@@ -30,9 +31,11 @@ func (c *Client) PostAccount(ctx context.Context, name string)(*Account, error) 
 		ctx,
 		&pb.PostAccountRequest{Name: name},
 	)
+
 	if err != nil {
 		return nil, err
 	}
+
 	return &Account{
 		ID: r.Account.Id,
 		Name: r.Account.Name,
@@ -44,9 +47,11 @@ func (c *Client) GetAccount(ctx context.Context, id string)(*Account, error) {
 		ctx,
 		&pb.GetAccountRequest{Id: id},
 	)
+
 	if err != nil {
 		return nil, err
 	}
+
 	return &Account{
 		ID: r.Account.Id,
 		Name: r.Account.Name,
@@ -61,9 +66,11 @@ func (c *Client) GetAccounts(ctx context.Context, skip uint64, take uint64)([]Ac
 			Take: take,
 		},
 	)
+
 	if err != nil {
 		return nil, err
 	}
+
 	accounts := []Account{}
 	for _, a := range r.Accounts {
 		accounts = append(accounts, Account{
@@ -71,5 +78,6 @@ func (c *Client) GetAccounts(ctx context.Context, skip uint64, take uint64)([]Ac
 			Name: a.Name,
 		})
 	}
+	
 	return accounts, nil
 }

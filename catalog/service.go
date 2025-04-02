@@ -39,6 +39,7 @@ func (s *catalogService) PostProduct(ctx context.Context, name, description stri
 	if err := s.repository.PutProduct(ctx, *p); err != nil {
 		return nil, err
 	}
+
 	return p, nil
 }
 
@@ -50,6 +51,7 @@ func (s *catalogService) GetProducts(ctx context.Context, skip uint64, take uint
 	if take > 100 || (skip == 0 && take == 0) {
 		take = 100
 	}
+
 	return s.repository.ListProducts(ctx, skip, take)
 }
 
@@ -61,5 +63,6 @@ func (s *catalogService) SearchProducts(ctx context.Context, query string, skip 
 	if take > 100 || (skip == 0 && take == 0) {
 		take = 100
 	}
+	
 	return s.repository.SearchProducts(ctx, query, skip, take)
 }

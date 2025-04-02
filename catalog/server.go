@@ -21,6 +21,7 @@ func ListenGRPC(s Service, port int) error {
 	if err != nil {
 		return err
 	}
+
 	serv := grpc.NewServer()
 	pb.RegisterCatalogServiceServer(serv, &grpcServer{
 		UnimplementedCatalogServiceServer: pb.UnimplementedCatalogServiceServer{},
@@ -36,6 +37,7 @@ func (s *grpcServer) PostProduct(ctx context.Context, r *pb.PostProductRequest) 
 		log.Println(err)
 		return nil, err
 	}
+
 	return &pb.PostProductResponse{Product: &pb.Product{
 		Id:          p.ID,
 		Name:        p.Name,
@@ -50,6 +52,7 @@ func (s *grpcServer) GetProduct(ctx context.Context, r *pb.GetProductRequest) (*
 		log.Println(err)
 		return nil, err
 	}
+
 	return &pb.GetProductResponse{
 		Product: &pb.Product{
 			Id:          p.ID,
@@ -63,6 +66,7 @@ func (s *grpcServer) GetProduct(ctx context.Context, r *pb.GetProductRequest) (*
 func (s *grpcServer) GetProducts(ctx context.Context, r *pb.GetProductsRequest) (*pb.GetProductsResponse, error) {
 	var res []Product
 	var err error
+
 	if r.Query != "" {
 		res, err = s.service.SearchProducts(ctx, r.Query, r.Skip, r.Take)
 	} else if len(r.Ids) != 0 {
@@ -74,6 +78,7 @@ func (s *grpcServer) GetProducts(ctx context.Context, r *pb.GetProductsRequest) 
 		log.Println(err)
 		return nil, err
 	}
+
 	products := []*pb.Product{}
 	for _, p := range res {
 		products = append(
@@ -86,5 +91,6 @@ func (s *grpcServer) GetProducts(ctx context.Context, r *pb.GetProductsRequest) 
 			},
 		)
 	}
+	
 	return &pb.GetProductsResponse{Products: products}, nil
 }
