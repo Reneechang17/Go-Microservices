@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: ./account/app.dockerfile
+    ports:
+      - 8081:8080
     depends_on:
       - account_db
     environment:
@@ -15,6 +17,8 @@ services:
     build:
       context: .
       dockerfile: ./catalog/app.dockerfile
+    ports:
+      - 8082:8080
     depends_on:
       - catalog_db
     environment:
@@ -25,6 +29,8 @@ services:
     build:
       context: .
       dockerfile: ./order/app.dockerfile
+    ports:
+      - 8083:8080
     depends_on:
       - order_db
     environment:
