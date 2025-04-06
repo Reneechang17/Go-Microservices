@@ -1,7 +1,7 @@
-# Go Microservices Project
+# Go Microservices Project -- Merchify
 
 ### Project Introduction
-- 
+- Merchify is a microservices-based platform for managing product catalogs and orders. It uses GraphQL to provide flexible data querying and gRPC for fast, efficient communication between services. This architecture enables scalable, real-time interactions and service integration.
 
 ### Tech Used
 - **Golang**: The core programming language used to build the microservices.
