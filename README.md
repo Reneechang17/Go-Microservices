@@ -1,7 +1,7 @@
-# Go Microservices Project -- Merchify
+# Go Microservices Project -- ExBox Marketplace
 
 ### Project Introduction
-- Merchify is a microservices-based platform for managing product catalogs and orders. It uses GraphQL to provide flexible data querying and gRPC for fast, efficient communication between services. This architecture enables scalable, real-time interactions and service integration.
+- **ExBox Marketplace** is a microservices-based platform for buying and selling second-hand items, with a fun twist—treasures from your ex, helping you say goodbye to past relationships! Built using GraphQL for precise data queries (only get the data you need), while gRPC ensures fast communication between services, which provides scalable and maintainable architecture for future.
 
 ### Tech Used
 - **Golang**: The core programming language used to build the microservices.
