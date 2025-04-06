@@ -27,20 +27,24 @@
         - **Queries**: For retrieving data. The client sends a query to GraphQL, which is mapped to the appropriate microservice. The response is sent back to the client with requested data.
         - **Mutations**: For modifying data, i.e. create, update, or delete data in the database and trigger backend logic.
 ![GraphQL core ops](https://github.com/Reneechang17/Go-Microservices/blob/main/static/GraphQL-queriesand%20mutations.jpg)
-
-    - **GraphQL level Schema**: The GraphQL schema defines the structure of data as exposed by the GraphQL server. This schema may not directly reflect the database schema but is tailored for client consumption.
+    - **GraphQL level Schema**: Where defines the structure of data as exposed by the GraphQL server. 
         - **Types** represent the data that can be queried by the client, including fields.
         - **Inputs** define the data the client needs to send when performing mutations.
-   - **Request & Response**:
-     - **Request**: The data the client sends, including the fields to query or mutate.
-     - **Response**: The data returned from the server after processing the request.
 ![GraphQL schema](https://github.com/Reneechang17/Go-Microservices/blob/main/static/GraphQL%20level%20schema.jpg)
+   - **Request & Response**:
 ![Req & Response](https://github.com/Reneechang17/Go-Microservices/blob/main/static/query-req%20and%20response.jpg)
 
-- Service Structure
+4. **Service Structure**
 ![Service structure](https://github.com/Reneechang17/Go-Microservices/blob/main/static/service%20structure.jpg)
 
-- Project Structure--files
+5. **Project Structure--files**
+   - **cmd**: Contains the `main.go` file for each service, responsible for initializing and configuring the service.
+   - **pb**: Contains the auto-generated gRPC client and server interfaces from the `proto` files, enabling service-to-service communication.
+   - **dockerfile**: Builds Docker images for each service, specifying the base image, dependencies, and how to run the service.
+   - **client.go**: Encapsulates the logic to interact with other microservices via gRPC, sending requests and receiving responses.
+   - **repository.go**: Defines the data access layer, handling storage and retrieval of data in the database.
+   - **server.go**: Handles incoming requests, calls the corresponding service methods, and returns the response.
+   - **service.go**: Implements core business logic, using `repository.go` to interact with the database.
 ![Proj structure](https://github.com/Reneechang17/Go-Microservices/blob/main/static/proj%20structure-files.jpg)
 
 - Services running at(local):
@@ -53,13 +57,3 @@
 | `GraphQL Gateway`  | `:8080` |
 | `Postgres`         | `:5432` |
 | `ElasticSearch`    | `:9200` |
-
-### About GraphQL used
-- `github.com/99designs/gqlgen` library:
-
-
-### About gRPC used
-
-
-### Future works?
-
